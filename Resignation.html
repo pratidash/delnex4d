@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Resignation Form</title>
+	<script type="text/javascript">
+		function check(){
+			var pass = document.getElementById('pass').value;
+			var cpass = document.getElementById('cpass').value;
+			if (pass != cpass) {
+				alert("Password and Confirm Password do not match.")
+			}
+		}
+		function fill(){
+			arr=['Qualification','Graduation','Post-Graduation']
+			var dd= document.getElementById('qual');
+			for(i=0;i<arr.length;i++)
+			{
+				var ele=document.createElement('option')
+				ele.text=arr[i];
+				dd.add(ele,i)
+			}
+		}
+		function fillOpts(){
+			opts=[['ME','CSE','EE'],['IT','I&E','CE']]
+			var dd= document.getElementById('qual');
+			var ddOpts= document.getElementById("course");
+			ddOpts.innerHTML=null;
+			idx= dd.selectedIndex;
+			for(i=0;i<opts[idx-1].length;i++){
+		        var ele1=document.createElement('option');
+                ele1.text=opts[idx-1][i];
+        		ddOpts.add(ele1,i);     
+        	}
+		}
+		function getAge(dob) {
+    		var today = new Date();
+   			var birthDate = new Date(dob);
+    		var age = today.getFullYear() - birthDate.getFullYear();
+    		var m = today.getMonth() - birthDate.getMonth();
+    		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        		age--;
+    		}
+    		if (age > 18) {
+    			alert('Age must be less than 18 years.')
+    		}		
+    	}
+    	function show(){
+    		var show = document.getElementById('pass');
+    		show.type = "text";
+    	}
+	</script>
+</head>
+<body onload="fill()">
+	<form onsubmit="check()">
+		<input type="text" name="name" placeholder="Name" required="required"><br><br>
+		<input type="password" id="pass" placeholder="Password" required="required"><br><br>
+		<input type="checkbox" id="show" onclick="show()"> Show Password<br><br>
+		<input type="password" id="cpass" placeholder="Confirm Password" required="required"><br><br>
+		<select required="required" id = "qual" onchange="fillOpts()">
+		</select><br><br>
+		<select id="course" required="required"></select><br><br>
+		D.O.B:<input type="date" value="dob" required="required" onselect="getAge(dob)"><br><br>
+		<button>Submit</button>
+	</form>
+</body>
+</html>
